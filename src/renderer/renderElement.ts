@@ -1418,7 +1418,11 @@ export function getFreeDrawSvgPath(element: ExcalidrawFreeDrawElement) {
   const inputPoints = element.simulatePressure
     ? element.points
     : element.points.length
-    ? element.points.map(([x, y], i) => [x, y, element.pressures[i]])
+    ? element.points.map(([x, y], i) => [
+        x,
+        y,
+        element.ignorePressure ? 0.5 : element.pressures[i],
+      ])
     : [[0, 0, 0.5]];
 
   // Consider changing the options for simulated pressure vs real pressure

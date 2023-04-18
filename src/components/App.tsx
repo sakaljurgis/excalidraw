@@ -4274,6 +4274,14 @@ class App extends React.Component<AppProps, AppState> {
       null,
     );
 
+    let simulatePressure = this.state.currentItemPressureRender === "simulate";
+    if (this.state.currentItemPressureRender === "unset") {
+      simulatePressure = event.pressure === 0.5;
+      this.setState({
+        currentItemPressureRender: simulatePressure ? "simulate" : "actual",
+      });
+    }
+
     const element = newFreeDrawElement({
       type: elementType,
       x: gridX,
@@ -4286,8 +4294,9 @@ class App extends React.Component<AppProps, AppState> {
       roughness: this.state.currentItemRoughness,
       opacity: this.state.currentItemOpacity,
       roundness: null,
-      simulatePressure: event.pressure === 0.5,
+      simulatePressure,
       locked: false,
+      ignorePressure: this.state.currentItemPressureRender === "ignore",
     });
 
     this.setState((prevState) => ({

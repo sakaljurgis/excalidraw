@@ -39,6 +39,8 @@ import {
   TextAlignCenterIcon,
   TextAlignRightIcon,
   FillZigZagIcon,
+  PenModeIcon,
+  SelectionIcon,
 } from "../components/icons";
 import {
   DEFAULT_FONT_FAMILY,
@@ -60,6 +62,7 @@ import {
 } from "../element/textElement";
 import {
   isBoundToContainer,
+  isFreeDrawElement,
   isLinearElement,
   isUsingAdaptiveRadius,
 } from "../element/typeChecks";
@@ -69,6 +72,7 @@ import {
   ExcalidrawLinearElement,
   ExcalidrawTextElement,
   FontFamilyValues,
+  PressureRender,
   TextAlign,
   VerticalAlign,
 } from "../element/types";
@@ -1082,4 +1086,66 @@ export const actionChangeArrowhead = register({
       </fieldset>
     );
   },
+});
+
+export const actionChangePressureRender = register({
+  name: "changePressureRender",
+  trackEvent: false,
+  perform: (elements, appState, value) => {
+    return {
+      elements: changeProperty(elements, appState, (oldElement) => {
+        if (isFreeDrawElement(oldElement)) {
+          return newElementWith(oldElement, {
+            ignorePressure: value === "ignore",
+            simulatePressure: value === "simulate",
+          });
+        }
+
+        return oldElement;
+      }),
+      appState: { ...appState, currentItemPressureRender: value },
+      commitToHistory: true,
+    };
+  },
+  PanelComponent: ({ elements, appState, updateData }) => (
+    <fieldset>
+      {<legend>{t("labels.pressure")}</legend>}
+      <ButtonIconSelect<string>
+        group="pressure-settings"
+        options={[
+          {
+            value: "ignore",
+            text: t("labels.ignorePressure"),
+            icon: StrokeWidthBaseIcon,
+          },
+          {
+            value: "simulate",
+            text: t("labels.simulatePressure"),
+            icon: SelectionIcon,
+          },
+          {
+            value: "actual",
+            text: t("labels.actualPressure"),
+            icon: PenModeIcon,
+          },
+        ]}
+        value={getFormValue<PressureRender>(
+          elements,
+          appState,
+          (element) => {
+            if (isFreeDrawElement(element)) {
+              return element.simulatePressure
+                ? "simulate"
+                : element.ignorePressure
+                ? "ignore"
+                : "actual";
+            }
+            return appState.currentItemPressureRender;
+          },
+          appState.currentItemPressureRender,
+        )}
+        onChange={(value) => updateData(value)}
+      />
+    </fieldset>
+  ),
 });

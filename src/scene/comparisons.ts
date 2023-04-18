@@ -34,6 +34,8 @@ export const hasText = (type: string) => type === "text";
 
 export const canHaveArrowheads = (type: string) => type === "arrow";
 
+export const hasPressures = (type: string) => type === "freedraw";
+
 export const getElementAtPosition = (
   elements: readonly NonDeletedExcalidrawElement[],
   isAtPositionFn: (element: NonDeletedExcalidrawElement) => boolean,

@@ -127,7 +127,11 @@
       "unlockAll": "Unlock all"
     },
     "statusPublished": "Published",
-    "sidebarLock": "Keep sidebar open"
+    "sidebarLock": "Keep sidebar open",
+    "pressure": "Pressure",
+    "ignorePressure": "Ignore pressure",
+    "simulatePressure": "Simulate pressure",
+    "actualPressure": "Actual pressure"
   },
   "library": {
     "noItems": "No items added yet...",
