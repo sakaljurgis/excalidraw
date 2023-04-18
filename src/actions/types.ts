@@ -115,7 +115,6 @@ export type ActionName =
   | "toggleLinearEditor"
   | "toggleEraserTool"
   | "toggleHandTool"
-  | "createContainerFromText"
   | "changePressureRender"
   | "wrapTextInContainer";
 
