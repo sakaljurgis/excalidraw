@@ -116,7 +116,8 @@ export type ActionName =
   | "toggleEraserTool"
   | "toggleHandTool"
   | "createContainerFromText"
-  | "changePressureRender";
+  | "changePressureRender"
+  | "wrapTextInContainer";
 
 export type PanelComponentProps = {
   elements: readonly ExcalidrawElement[];
