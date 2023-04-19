@@ -91,6 +91,7 @@ import {
 import { hasStrokeColor } from "../scene/comparisons";
 import { arrayToMap, getShortcutKey } from "../utils";
 import { register } from "./register";
+import {CheckboxItem} from "../components/CheckboxItem";
 
 const FONT_SIZE_RELATIVE_INCREASE_STEP = 0.1;
 
@@ -377,7 +378,10 @@ export const actionChangeStrokeWidth = register({
     return {
       elements: changeProperty(elements, appState, (el) =>
         newElementWith(el, {
-          strokeWidth: value,
+          strokeWidth:
+            isFreeDrawElement(el) && appState.currentItemSmallStrokeWidth
+              ? value / 4.25
+              : value,
         }),
       ),
       appState: { ...appState, currentItemStrokeWidth: value },
@@ -409,10 +413,45 @@ export const actionChangeStrokeWidth = register({
         value={getFormValue(
           elements,
           appState,
-          (element) => element.strokeWidth,
+          (element) => Math.round(element.strokeWidth < 1 ? element.strokeWidth * 4.25 : element.strokeWidth), //element.strokeWidth,
           appState.currentItemStrokeWidth,
         )}
         onChange={(value) => updateData(value)}
+      />
+    </fieldset>
+  ),
+});
+
+export const actionToggleSmallStrokeWidth = register({
+  name: "toggleSmallStrokeWidth",
+  trackEvent: false,
+  perform: (elements, appState, isSmallStroke) => {
+    return {
+      elements: changeProperty(elements, appState, (el) => {
+        const newWidth = isFreeDrawElement(el) && isSmallStroke
+            ? el.strokeWidth < 1 ? el.strokeWidth : el.strokeWidth / 4.25
+            : Math.round(el.strokeWidth < 1 ? el.strokeWidth * 4.25 : el.strokeWidth);
+        console.log('element', newWidth);
+        console.log('current item', appState.currentItemStrokeWidth);
+        return newElementWith(el, {
+          strokeWidth: newWidth,
+        })},
+      ),
+      appState: { ...appState, currentItemSmallStrokeWidth: isSmallStroke },
+      commitToHistory: true,
+    };
+  },
+  PanelComponent: ({ elements, appState, updateData }) => (
+    <fieldset>
+      <CheckboxItem
+        checked={getFormValue<boolean>(
+          elements,
+          appState,
+          (element) => element.strokeWidth < 1,
+          appState.currentItemSmallStrokeWidth,
+        ) ?? appState.currentItemSmallStrokeWidth}
+        onChange={(checked) => updateData(checked)}
+        children="Small stroke"
       />
     </fieldset>
   ),
