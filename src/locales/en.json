@@ -128,8 +128,8 @@
     },
     "statusPublished": "Published",
     "sidebarLock": "Keep sidebar open",
-    "pressure": "Pressure",
-    "ignorePressure": "Ignore pressure",
+    "pressureRendering": "Pressure rendering",
+    "constantPressure": "Constant pressure",
     "simulatePressure": "Simulate pressure",
     "actualPressure": "Actual pressure"
   },

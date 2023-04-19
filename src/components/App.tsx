@@ -4294,7 +4294,7 @@ class App extends React.Component<AppProps, AppState> {
       roundness: null,
       simulatePressure,
       locked: false,
-      ignorePressure: this.state.currentItemPressureRender === "ignore",
+      constantPressure: this.state.currentItemPressureRender === "constant",
     });
 
     this.setState((prevState) => ({

@@ -199,7 +199,7 @@ export class API {
         element = newFreeDrawElement({
           type: type as "freedraw",
           simulatePressure: true,
-          ignorePressure: false,
+          constantPressure: false,
           ...base,
         });
         break;

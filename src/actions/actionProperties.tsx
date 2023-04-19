@@ -1096,7 +1096,7 @@ export const actionChangePressureRender = register({
       elements: changeProperty(elements, appState, (oldElement) => {
         if (isFreeDrawElement(oldElement)) {
           return newElementWith(oldElement, {
-            ignorePressure: value === "ignore",
+            constantPressure: value === "constant",
             simulatePressure: value === "simulate",
           });
         }
@@ -1109,13 +1109,13 @@ export const actionChangePressureRender = register({
   },
   PanelComponent: ({ elements, appState, updateData }) => (
     <fieldset>
-      {<legend>{t("labels.pressure")}</legend>}
+      {<legend>{t("labels.pressureRendering")}</legend>}
       <ButtonIconSelect<string>
         group="pressure-settings"
         options={[
           {
-            value: "ignore",
-            text: t("labels.ignorePressure"),
+            value: "constant",
+            text: t("labels.constantPressure"),
             icon: StrokeWidthBaseIcon,
           },
           {
@@ -1136,8 +1136,8 @@ export const actionChangePressureRender = register({
             if (isFreeDrawElement(element)) {
               return element.simulatePressure
                 ? "simulate"
-                : element.ignorePressure
-                ? "ignore"
+                : element.constantPressure
+                ? "constant"
                 : "actual";
             }
             return appState.currentItemPressureRender;

@@ -1421,7 +1421,7 @@ export function getFreeDrawSvgPath(element: ExcalidrawFreeDrawElement) {
     ? element.points.map(([x, y], i) => [
         x,
         y,
-        element.ignorePressure ? 0.5 : element.pressures[i],
+        element.constantPressure ? 0.5 : element.pressures[i],
       ])
     : [[0, 0, 0.5]];
 
