@@ -128,7 +128,12 @@
       "unlockAll": "Unlock all"
     },
     "statusPublished": "Published",
-    "sidebarLock": "Keep sidebar open"
+    "sidebarLock": "Keep sidebar open",
+    "pressureRendering": "Pressure rendering",
+    "constantPressure": "Constant pressure (not compatible with Excalidraw)",
+    "simulatePressure": "Simulate pressure",
+    "actualPressure": "Actual pressure",
+    "deletePressureData": "Delete pressure data (irreversible action)"
   },
   "library": {
     "noItems": "No items added yet...",

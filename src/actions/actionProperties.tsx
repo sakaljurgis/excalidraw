@@ -39,6 +39,9 @@ import {
   TextAlignCenterIcon,
   TextAlignRightIcon,
   FillZigZagIcon,
+  PenModeIcon,
+  SelectionIcon,
+  TrashIcon,
 } from "../components/icons";
 import {
   DEFAULT_FONT_FAMILY,
@@ -60,6 +63,7 @@ import {
 } from "../element/textElement";
 import {
   isBoundToContainer,
+  isFreeDrawElement,
   isLinearElement,
   isUsingAdaptiveRadius,
 } from "../element/typeChecks";
@@ -69,6 +73,7 @@ import {
   ExcalidrawLinearElement,
   ExcalidrawTextElement,
   FontFamilyValues,
+  PressureRender,
   TextAlign,
   VerticalAlign,
 } from "../element/types";
@@ -807,6 +812,7 @@ export const actionChangeTextAlign = register({
     );
   },
 });
+
 export const actionChangeVerticalAlign = register({
   name: "changeVerticalAlign",
   trackEvent: { category: "element" },
@@ -1084,4 +1090,83 @@ export const actionChangeArrowhead = register({
       </fieldset>
     );
   },
+});
+
+export const actionChangePressureRender = register({
+  name: "changePressureRender",
+  trackEvent: false,
+  perform: (elements, appState, value) => {
+    const changeAppState = {
+      currentItemPressureRender: value,
+    };
+    if (value === "delete") {
+      changeAppState.currentItemPressureRender =
+        appState.currentItemPressureRender;
+    }
+    return {
+      elements: changeProperty(elements, appState, (oldElement) => {
+        if (isFreeDrawElement(oldElement)) {
+          if (value === "delete") {
+            return newElementWith(oldElement, {
+              pressures: [],
+            });
+          }
+          return newElementWith(oldElement, {
+            constantPressure: value === "constant",
+            simulatePressure: value === "simulate",
+          });
+        }
+
+        return oldElement;
+      }),
+      appState: { ...appState, ...changeAppState },
+      commitToHistory: true,
+    };
+  },
+  PanelComponent: ({ elements, appState, updateData }) => (
+    <fieldset>
+      {<legend>{t("labels.pressureRendering")}</legend>}
+      <ButtonIconSelect<PressureRender | "delete">
+        group="pressure-settings"
+        options={[
+          {
+            value: "constant",
+            text: t("labels.constantPressure"),
+            icon: StrokeWidthBaseIcon,
+          },
+          {
+            value: "simulate",
+            text: t("labels.simulatePressure"),
+            icon: SelectionIcon,
+          },
+          {
+            value: "actual",
+            text: t("labels.actualPressure"),
+            icon: PenModeIcon,
+          },
+          {
+            value: "delete",
+            text: t("labels.deletePressureData"),
+            icon: TrashIcon,
+          },
+        ]}
+        value={getFormValue<PressureRender>(
+          elements,
+          appState,
+          (element) => {
+            if (isFreeDrawElement(element)) {
+              return element.simulatePressure
+                ? "simulate"
+                : element.constantPressure
+                ? "constant"
+                : "actual";
+            }
+            return appState.currentItemPressureRender;
+          },
+          appState.currentItemPressureRender,
+        )}
+        onChange={(value) => updateData(value)}
+      />
+    </fieldset>
+  ),
 });

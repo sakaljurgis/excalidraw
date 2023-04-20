@@ -14,6 +14,7 @@ import {
   ExcalidrawImageElement,
   Theme,
   StrokeRoundness,
+  PressureRender,
 } from "./element/types";
 import { SHAPES } from "./shapes";
 import { Point as RoughPoint } from "roughjs/bin/geometry";
@@ -150,6 +151,7 @@ export type AppState = {
   currentItemStartArrowhead: Arrowhead | null;
   currentItemEndArrowhead: Arrowhead | null;
   currentItemRoundness: StrokeRoundness;
+  currentItemPressureRender: PressureRender;
   viewBackgroundColor: string;
   scrollX: number;
   scrollY: number;

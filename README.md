@@ -1,10 +1,17 @@
+<div>
+<h2>Some additions to Excalidraw:</h2>
+<h3>Added ability to change pressure settings for freedraw, example of straight line using pen:</h3>
+<img alt= "Example" src="https://static.sklk.lt/excalidraw-pressure.png">
+</div>
+<h4><a href="https://excalidraw.sklk.lt/" target="_blank">Demo available here</a></h4>
+<h3>Below is from Excalidraw readme:</h3>
+<hr>
 <a href="https://excalidraw.com/" target="_blank" rel="noopener">
   <picture>
     <source media="(prefers-color-scheme: dark)" alt="Excalidraw" srcset="https://excalidraw.nyc3.cdn.digitaloceanspaces.com/github%2FExcalidraw_Github_cover_dark.png" />
     <img alt="Excalidraw" src="https://excalidraw.nyc3.cdn.digitaloceanspaces.com/github%2FExcalidraw_Github_cover.png" />
   </picture>
 </a>
-
 <h4 align="center">
   <a href="https://excalidraw.com">Excalidraw Editor</a> |
   <a href="https://blog.excalidraw.com">Blog</a> |

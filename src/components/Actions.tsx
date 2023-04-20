@@ -23,7 +23,7 @@ import {
 } from "../utils";
 import Stack from "./Stack";
 import { ToolButton } from "./ToolButton";
-import { hasStrokeColor } from "../scene/comparisons";
+import { hasPressures, hasStrokeColor } from "../scene/comparisons";
 import { trackEvent } from "../analytics";
 import { hasBoundTextElement } from "../element/typeChecks";
 import clsx from "clsx";
@@ -83,6 +83,10 @@ export const SelectedShapeActions = ({
     }
   }
 
+  const showPressureSettings =
+    hasPressures(appState.activeTool.type) ||
+    targetElements.some((element) => hasPressures(element.type));
+
   return (
     <div className="panelColumn">
       <div>
@@ -138,6 +142,8 @@ export const SelectedShapeActions = ({
       )}
 
       {renderAction("changeOpacity")}
+
+      {showPressureSettings && renderAction("changePressureRender")}
 
       <fieldset>
         <legend>{t("labels.layers")}</legend>

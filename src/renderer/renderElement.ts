@@ -34,6 +34,7 @@ import { AppState, BinaryFiles, Zoom } from "../types";
 import { getDefaultAppState } from "../appState";
 import {
   BOUND_TEXT_PADDING,
+  FREEDRAW_RENDER_PROPS,
   MAX_DECIMALS_FOR_SVG_EXPORT,
   MIME_TYPES,
   SVG_NS,
@@ -1419,13 +1420,19 @@ export function getFreeDrawSvgPath(element: ExcalidrawFreeDrawElement) {
   const inputPoints = element.simulatePressure
     ? element.points
     : element.points.length
-    ? element.points.map(([x, y], i) => [x, y, element.pressures[i]])
-    : [[0, 0, 0.5]];
+    ? element.points.map(([x, y], i) => [
+        x,
+        y,
+        element.constantPressure
+          ? FREEDRAW_RENDER_PROPS.constantPressureValue
+          : element.pressures[i],
+      ])
+    : [[0, 0, FREEDRAW_RENDER_PROPS.constantPressureValue]];
 
   // Consider changing the options for simulated pressure vs real pressure
   const options: StrokeOptions = {
     simulatePressure: element.simulatePressure,
-    size: element.strokeWidth * 4.25,
+    size: element.strokeWidth * FREEDRAW_RENDER_PROPS.strokeWidthMultiplier,
     thinning: 0.6,
     smoothing: 0.5,
     streamline: 0.5,

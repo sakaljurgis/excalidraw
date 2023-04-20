@@ -17,6 +17,7 @@ Object {
   "currentItemFontFamily": 1,
   "currentItemFontSize": 20,
   "currentItemOpacity": 100,
+  "currentItemPressureRender": "unset",
   "currentItemRoughness": 1,
   "currentItemRoundness": "round",
   "currentItemStartArrowhead": null,

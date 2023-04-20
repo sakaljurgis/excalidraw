@@ -115,6 +115,7 @@ export type ActionName =
   | "toggleLinearEditor"
   | "toggleEraserTool"
   | "toggleHandTool"
+  | "changePressureRender"
   | "wrapTextInContainer";
 
 export type PanelComponentProps = {

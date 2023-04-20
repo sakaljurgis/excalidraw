@@ -156,6 +156,7 @@ Object {
   "angle": 0,
   "backgroundColor": "transparent",
   "boundElements": Array [],
+  "constantPressure": false,
   "fillStyle": "hachure",
   "groupIds": Array [],
   "height": 0,
