@@ -25,6 +25,7 @@ Object {
   "currentItemStrokeStyle": "solid",
   "currentItemStrokeWidth": 1,
   "currentItemTextAlign": "left",
+  "currentItemThinStrokeWidth": false,
   "cursorButton": "up",
   "draggingElement": null,
   "editingElement": null,
