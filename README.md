@@ -3,7 +3,8 @@
 <h3>Added ability to change pressure settings for freedraw, example of straight line using pen:</h3>
 <img alt= "Example" src="http://static.sklk.lt/s/0ODq965GiSmuNun/download">
 </div>
-<h4>Below is from Excalidraw readme</h4>
+<a href="https://excalidraw.sklk.lt/" target="_blank" rel="noopener"><h4>Demo available here</h4></a>
+<h3>Below is from Excalidraw readme:</h3>
 <hr>
 <a href="https://excalidraw.com/" target="_blank" rel="noopener">
   <picture>
