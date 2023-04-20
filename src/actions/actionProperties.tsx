@@ -47,6 +47,7 @@ import {
   DEFAULT_FONT_FAMILY,
   DEFAULT_FONT_SIZE,
   FONT_FAMILY,
+  FREEDRAW_RENDER_PROPS,
   ROUNDNESS,
   VERTICAL_ALIGN,
 } from "../constants";
@@ -91,7 +92,7 @@ import {
 import { hasStrokeColor } from "../scene/comparisons";
 import { arrayToMap, getShortcutKey } from "../utils";
 import { register } from "./register";
-import {CheckboxItem} from "../components/CheckboxItem";
+import { CheckboxItem } from "../components/CheckboxItem";
 
 const FONT_SIZE_RELATIVE_INCREASE_STEP = 0.1;
 
@@ -379,8 +380,8 @@ export const actionChangeStrokeWidth = register({
       elements: changeProperty(elements, appState, (el) =>
         newElementWith(el, {
           strokeWidth:
-            isFreeDrawElement(el) && appState.currentItemSmallStrokeWidth
-              ? value / 4.25
+            isFreeDrawElement(el) && el.strokeWidth < 1
+              ? value / FREEDRAW_RENDER_PROPS.strokeWidthMultiplier
               : value,
         }),
       ),
@@ -413,7 +414,13 @@ export const actionChangeStrokeWidth = register({
         value={getFormValue(
           elements,
           appState,
-          (element) => Math.round(element.strokeWidth < 1 ? element.strokeWidth * 4.25 : element.strokeWidth), //element.strokeWidth,
+          (element) =>
+            Math.round(
+              element.strokeWidth < 1
+                ? element.strokeWidth *
+                    FREEDRAW_RENDER_PROPS.strokeWidthMultiplier
+                : element.strokeWidth,
+            ),
           appState.currentItemStrokeWidth,
         )}
         onChange={(value) => updateData(value)}
@@ -422,36 +429,44 @@ export const actionChangeStrokeWidth = register({
   ),
 });
 
-export const actionToggleSmallStrokeWidth = register({
-  name: "toggleSmallStrokeWidth",
+export const actionToggleThinStrokeWidth = register({
+  name: "toggleThinStrokeWidth",
   trackEvent: false,
-  perform: (elements, appState, isSmallStroke) => {
+  perform: (elements, appState, isThinStroke) => {
     return {
       elements: changeProperty(elements, appState, (el) => {
-        const newWidth = isFreeDrawElement(el) && isSmallStroke
-            ? el.strokeWidth < 1 ? el.strokeWidth : el.strokeWidth / 4.25
-            : Math.round(el.strokeWidth < 1 ? el.strokeWidth * 4.25 : el.strokeWidth);
-        console.log('element', newWidth);
-        console.log('current item', appState.currentItemStrokeWidth);
+        const newWidth =
+          isFreeDrawElement(el) && isThinStroke
+            ? el.strokeWidth < 1
+              ? el.strokeWidth
+              : el.strokeWidth / FREEDRAW_RENDER_PROPS.strokeWidthMultiplier
+            : Math.round(
+                el.strokeWidth < 1
+                  ? el.strokeWidth * FREEDRAW_RENDER_PROPS.strokeWidthMultiplier
+                  : el.strokeWidth,
+              );
+
         return newElementWith(el, {
           strokeWidth: newWidth,
-        })},
-      ),
-      appState: { ...appState, currentItemSmallStrokeWidth: isSmallStroke },
+        });
+      }),
+      appState: { ...appState, currentItemThinStrokeWidth: isThinStroke },
       commitToHistory: true,
     };
   },
   PanelComponent: ({ elements, appState, updateData }) => (
     <fieldset>
       <CheckboxItem
-        checked={getFormValue<boolean>(
-          elements,
-          appState,
-          (element) => element.strokeWidth < 1,
-          appState.currentItemSmallStrokeWidth,
-        ) ?? appState.currentItemSmallStrokeWidth}
+        checked={
+          getFormValue<boolean>(
+            elements,
+            appState,
+            (element) => element.strokeWidth < 1,
+            appState.currentItemThinStrokeWidth,
+          ) ?? appState.currentItemThinStrokeWidth
+        }
         onChange={(checked) => updateData(checked)}
-        children="Small stroke"
+        children={t("labels.thinStroke")}
       />
     </fieldset>
   ),

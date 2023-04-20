@@ -12,6 +12,7 @@
     <img alt="Excalidraw" src="https://excalidraw.nyc3.cdn.digitaloceanspaces.com/github%2FExcalidraw_Github_cover.png" />
   </picture>
 </a>
+
 <h4 align="center">
   <a href="https://excalidraw.com">Excalidraw Editor</a> |
   <a href="https://blog.excalidraw.com">Blog</a> |

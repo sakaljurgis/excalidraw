@@ -87,6 +87,8 @@ export const SelectedShapeActions = ({
     hasPressures(appState.activeTool.type) ||
     targetElements.some((element) => hasPressures(element.type));
 
+  const showThinStrokeToggle = showPressureSettings;
+
   return (
     <div className="panelColumn">
       <div>
@@ -105,7 +107,7 @@ export const SelectedShapeActions = ({
         targetElements.some((element) => hasStrokeWidth(element.type))) &&
         renderAction("changeStrokeWidth")}
 
-      {renderAction("toggleSmallStrokeWidth")}
+      {showThinStrokeToggle && renderAction("toggleThinStrokeWidth")}
 
       {(appState.activeTool.type === "freedraw" ||
         targetElements.some((element) => element.type === "freedraw")) &&

@@ -59,6 +59,7 @@ import {
   ELEMENT_TRANSLATE_AMOUNT,
   ENV,
   EVENT,
+  FREEDRAW_RENDER_PROPS,
   GRID_SIZE,
   IMAGE_RENDER_TIMEOUT,
   isAndroid,
@@ -4288,8 +4289,9 @@ class App extends React.Component<AppProps, AppState> {
       strokeColor: this.state.currentItemStrokeColor,
       backgroundColor: this.state.currentItemBackgroundColor,
       fillStyle: this.state.currentItemFillStyle,
-      strokeWidth: this.state.currentItemSmallStrokeWidth
-        ? this.state.currentItemStrokeWidth / 4.25
+      strokeWidth: this.state.currentItemThinStrokeWidth
+        ? this.state.currentItemStrokeWidth /
+          FREEDRAW_RENDER_PROPS.strokeWidthMultiplier
         : this.state.currentItemStrokeWidth,
       strokeStyle: this.state.currentItemStrokeStyle,
       roughness: this.state.currentItemRoughness,

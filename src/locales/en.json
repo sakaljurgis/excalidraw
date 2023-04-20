@@ -133,7 +133,8 @@
     "constantPressure": "Constant pressure (not compatible with Excalidraw)",
     "simulatePressure": "Simulate pressure",
     "actualPressure": "Actual pressure",
-    "deletePressureData": "Delete pressure data (irreversible action)"
+    "deletePressureData": "Delete pressure data (irreversible action)",
+    "thinStroke": "Thin stroke"
   },
   "library": {
     "noItems": "No items added yet...",

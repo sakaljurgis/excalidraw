@@ -117,7 +117,7 @@ export type ActionName =
   | "toggleHandTool"
   | "changePressureRender"
   | "wrapTextInContainer"
-  | "toggleSmallStrokeWidth";
+  | "toggleThinStrokeWidth";
 
 export type PanelComponentProps = {
   elements: readonly ExcalidrawElement[];
