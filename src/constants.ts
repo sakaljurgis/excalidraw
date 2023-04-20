@@ -275,3 +275,8 @@ export const DEFAULT_ELEMENT_PROPS: {
   opacity: 100,
   locked: false,
 };
+
+export const FREEDRAW_RENDER_PROPS = {
+  constantPressureValue: 0.5,
+  strokeWidthMultiplier: 4.25,
+};

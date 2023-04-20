@@ -41,6 +41,7 @@ import {
   FillZigZagIcon,
   PenModeIcon,
   SelectionIcon,
+  TrashIcon,
 } from "../components/icons";
 import {
   DEFAULT_FONT_FAMILY,
@@ -809,6 +810,7 @@ export const actionChangeTextAlign = register({
     );
   },
 });
+
 export const actionChangeVerticalAlign = register({
   name: "changeVerticalAlign",
   trackEvent: { category: "element" },
@@ -1092,9 +1094,21 @@ export const actionChangePressureRender = register({
   name: "changePressureRender",
   trackEvent: false,
   perform: (elements, appState, value) => {
+    const changeAppState = {
+      currentItemPressureRender: value,
+    };
+    if (value === "delete") {
+      changeAppState.currentItemPressureRender =
+        appState.currentItemPressureRender;
+    }
     return {
       elements: changeProperty(elements, appState, (oldElement) => {
         if (isFreeDrawElement(oldElement)) {
+          if (value === "delete") {
+            return newElementWith(oldElement, {
+              pressures: [],
+            });
+          }
           return newElementWith(oldElement, {
             constantPressure: value === "constant",
             simulatePressure: value === "simulate",
@@ -1103,14 +1117,14 @@ export const actionChangePressureRender = register({
 
         return oldElement;
       }),
-      appState: { ...appState, currentItemPressureRender: value },
+      appState: { ...appState, ...changeAppState },
       commitToHistory: true,
     };
   },
   PanelComponent: ({ elements, appState, updateData }) => (
     <fieldset>
       {<legend>{t("labels.pressureRendering")}</legend>}
-      <ButtonIconSelect<string>
+      <ButtonIconSelect<PressureRender | "delete">
         group="pressure-settings"
         options={[
           {
@@ -1127,6 +1141,11 @@ export const actionChangePressureRender = register({
             value: "actual",
             text: t("labels.actualPressure"),
             icon: PenModeIcon,
+          },
+          {
+            value: "delete",
+            text: t("labels.deletePressureData"),
+            icon: TrashIcon,
           },
         ]}
         value={getFormValue<PressureRender>(
