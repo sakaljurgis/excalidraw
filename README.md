@@ -1,11 +1,17 @@
 <div>
-<h2>Some additions to Excalidraw:</h2>
-<h3>Added ability to change pressure settings for freedraw, example of straight line using pen:</h3>
+<h2>Additions to Excalidraw:</h2>
+
+<h3>Ability to change pressure settings for freedraw, example of straight line using a pen:</h3>
 <img alt= "Example" src="https://static.sklk.lt/excalidraw-pressure.png">
+
+<h3>Ability to toggle thin stroke for freedraw, useful when using a pen:</h3>
+<img alt= "Example" src="https://static.sklk.lt/excalidraw-thin-stroke.png">
 </div>
-<h4><a href="https://excalidraw.sklk.lt/" target="_blank">Demo available here</a></h4>
-<h3>Below is from Excalidraw readme:</h3>
+
+<h4><a href="https://excalidraw.sklk.lt/" target="_blank">Live demo available here</a></h4>
+<h3>Below is Excalidraw readme:</h3>
 <hr>
+
 <a href="https://excalidraw.com/" target="_blank" rel="noopener">
   <picture>
     <source media="(prefers-color-scheme: dark)" alt="Excalidraw" srcset="https://excalidraw.nyc3.cdn.digitaloceanspaces.com/github%2FExcalidraw_Github_cover_dark.png" />
