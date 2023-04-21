@@ -437,6 +437,12 @@ export const generateRoughOptions = (
     case "line":
     case "freedraw": {
       if (isPathALoop(element.points)) {
+        if (element.strokeWidth < 1) {
+          const calculatedStrokeWidth =
+            element.strokeWidth * FREEDRAW_RENDER_PROPS.strokeWidthMultiplier;
+          options.fillWeight = calculatedStrokeWidth / 2;
+          options.hachureGap = calculatedStrokeWidth * 4;
+        }
         options.fillStyle = element.fillStyle;
         options.fill =
           element.backgroundColor === "transparent"
